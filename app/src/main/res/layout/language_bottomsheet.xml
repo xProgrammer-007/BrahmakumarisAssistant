@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:id="@+id/bottomSheetUpper"
+        android:orientation="vertical"
+        android:background="#44000000"
+>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:background="#44000000"
+                  android:gravity="bottom"
+  >
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+        >
+            <Button android:layout_width="match_parent"
+                    android:text="English"
+                    android:background="@drawable/bg_gradient"
+                    android:id="@+id/englishLangBottomSheet"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"/>
+            <Button android:layout_width="match_parent"
+                    android:text="Hindi"
+                    android:background="@drawable/bg_gradient"
+                    android:id="@+id/hindiLangBottomSheet"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="18dp"
+                    android:layout_height="wrap_content"/>
+            <Button android:layout_width="match_parent"
+                    android:text="Nepali"
+                    android:background="@drawable/bg_gradient"
+                    android:id="@+id/nepaliLangBottomSheet"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="18dp"
+                    android:layout_height="wrap_content"/>
+            <Button android:layout_width="match_parent"
+                    android:text="Bengali"
+                    android:background="@drawable/bg_gradient"
+                    android:id="@+id/bengaliLangBottomSheet"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="18dp"
+                    android:layout_height="wrap_content"/>
+            <Button android:layout_width="match_parent"
+                    android:text="Tamil"
+                    android:background="@drawable/bg_gradient"
+                    android:id="@+id/tamilLangBottomSheet"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="18dp"
+                    android:layout_height="wrap_content"/>
+            <Button android:layout_width="match_parent"
+                    android:text="Telugu"
+                    android:background="@drawable/bg_gradient"
+                    android:id="@+id/teluguLangBottomSheet"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="18dp"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

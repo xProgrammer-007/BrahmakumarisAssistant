@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".DailyMurli">
+
+    <android.support.design.widget.AppBarLayout
+            android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/gradient_img"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                    android:orientation="horizontal"
+        >
+
+            <LinearLayout
+                    android:paddingTop="10dp"
+                    android:paddingBottom="15dp"
+                    android:gravity="left"
+                    android:paddingLeft="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+            >
+
+                <Button
+                        android:id="@+id/datePicker"
+                        android:layout_height="35dp"
+                        android:backgroundTint="@color/white"
+                        android:layout_width="35dp"
+                        android:gravity="center"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/ic_date_range_black_24dp"
+                />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:text="20/05/2018"
+                        android:id="@+id/dateLabel"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="18dp"
+                        android:gravity="center|center_vertical"
+                        android:layout_height="match_parent"/>
+
+            </LinearLayout>
+           <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:gravity="right|center"
+                    android:orientation="horizontal">
+               <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="fill_parent"
+                       android:id="@+id/lanuageLabel"
+                       android:text="Hindi"
+                       android:layout_marginEnd="8dp"
+                       android:textColor="@color/white"
+                       android:fontFamily="@font/roboto_medium"
+                       android:textSize="18dp"
+                       android:gravity="center|center_vertical"
+               />
+
+               <Button
+                       android:id="@+id/languagePicker"
+                       android:layout_height="35dp"
+                       android:backgroundTint="@color/white"
+                       android:layout_width="35dp"
+                       android:layout_marginEnd="10dp"
+                       android:background="@drawable/ic_language_black_24dp"/>
+
+           </LinearLayout>
+        </LinearLayout>
+
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_daily_murli"/>
+
+
+</android.support.design.widget.CoordinatorLayout>
