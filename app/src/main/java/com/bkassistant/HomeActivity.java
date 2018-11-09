@@ -1,41 +1,79 @@
 package com.bkassistant;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
-import com.bumptech.glide.Glide;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.roundedimage.akshay.vishal.RoundedImage;
-import ss.com.bannerslider.Slider;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public RoundedImage.DownloadImageTask roundedImage;
+    public Handler musicHandler;
+    public  Runnable runnable;
 
+    public MediaPlayerApi mediaPlayerApi;
+    public MediaPlayerUi mediaPlayerUi;
 
+    public Globals globalVariable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        mediaPlayerUi = new MediaPlayerUi();
+        mediaPlayerApi = new MediaPlayerApi(HomeActivity.this, this);
+        SongDetail songDetail = new SongDetail("Valllaha","http://www.largesound.com/ashborytour/sound/brobob.mp3");
+                mediaPlayerApi.playlist.add(songDetail);
+        final Handler handler = new Handler();
+        final Runnable r = new Runnable()
+        {
+            public void run()
+            {
+                mediaPlayerApi._updateSeekBar();
+                handler.postDelayed(this, 1000);
+            }
+        };
+
+
+
+        mediaPlayerApi.mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(final MediaPlayer mp) {
+                mediaPlayerUi.setPauseIcon();
+                mediaPlayerApi.playerState = MediaPlayerApi.PlayerState.playing;
+                mp.start();
+                mediaPlayerUi.seekBar.setProgress( 0 );
+                mediaPlayerUi.seekBar.setMax( mp.getDuration() );
+                handler.postDelayed(r, 100);
+            }
+        });
+
+
+
+
+
+       globalVariable = (Globals) getApplicationContext();
+
+        globalVariable.setMediaPlayerApi(mediaPlayerApi);
 
         HomePageSlider homePageSlider = new HomePageSlider(this);
 
@@ -53,7 +91,7 @@ public class HomeActivity extends AppCompatActivity
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         _applyUserCredentials(navigationView);
@@ -73,7 +111,7 @@ public class HomeActivity extends AppCompatActivity
                         View headerView = navigationView.getHeaderView(0);
                         emailView = headerView.findViewById(R.id.oAuthUserEmailId);
                         userName = headerView.findViewById(R.id.oAuthUserUserName);
-                        imgAvatar = headerView.findViewById(R.id.imageAvatar);
+                        imgAvatar = findViewById(R.id.imageAvatar);
 
                         emailView.setText(user.getEmail());
                         userName.setText(user.getDisplayName());
@@ -174,5 +212,72 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+
+    class MediaPlayerUi{
+
+        public Button playPauseBtn , skipNext;
+        public SeekBar seekBar;
+        public TextView songTextView;
+
+        public Drawable play;
+        public Drawable pause;
+
+        MediaPlayerUi() {
+            playPauseBtn =  findViewById(R.id.playerPlayPauseBtn);
+            playPauseBtn = findViewById(R.id.playerPlayPauseBtn);
+            skipNext = findViewById(R.id.playerSkipNextBtn);
+            seekBar = findViewById(R.id.playerSeekBarBtn);
+            songTextView = findViewById(R.id.songNamePlayerLabel);
+
+             play = getApplicationContext().getResources().getDrawable(R.drawable.ic_play_arrow_black_24dp);
+             pause = getApplicationContext().getResources().getDrawable(R.drawable.ic_pause_black_24dp);
+
+
+            setPlayIcon();
+
+
+
+            playPauseBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    System.out.println("clicked play/pause");
+
+                    if(mediaPlayerApi.playerState == MediaPlayerApi.PlayerState.playing){
+                        setPlayIcon();
+                        mediaPlayerApi.pause();
+                    }else if (mediaPlayerApi.playerState == MediaPlayerApi.PlayerState.paused){
+                        setPauseIcon();
+                        mediaPlayerApi.resume();
+                    }else{
+                        setPauseIcon();
+                        mediaPlayerApi.play();
+                    }
+
+                }
+            });
+
+            skipNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    System.out.println("clicked skip/next");
+                    mediaPlayerApi.next();
+                }
+            });
+
+        }
+
+        public void setPlayIcon(){
+            playPauseBtn.setBackground(play);
+        }
+
+        public void setPauseIcon(){
+            playPauseBtn.setBackground(pause);
+        }
+
+
+
     }
 }

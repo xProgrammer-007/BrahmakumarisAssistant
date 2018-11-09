@@ -31,6 +31,9 @@
         <!--dialog background-->
     </style>
 
+    <style name="rounded_corner">
+        <item name="android:radius">10dp</item>
+    </style>
 
 
     <style name="MaterialDialogSheetAnimation">
