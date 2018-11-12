@@ -21,28 +21,28 @@ public class SignUp {
 
 
     public void createAccountUsingEmailPassword(String email , String password){
-       progressDialog.progressDialog("Please wait ");
+        progressDialog.progressDialog("Please wait ");
 
         oAuth.createUserWithEmailAndPassword(email,password)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         Toast.makeText(activity, "Successfully account created", Toast.LENGTH_SHORT).show();
-                         progressDialog.dismisss();
-                         activity.startActivity(
-                                 new Intent(
-                                         activity,
-                                         HomeActivity.class
-                                 )
-                         );
+                        progressDialog.dismisss();
+                        activity.startActivity(
+                                new Intent(
+                                        activity,
+                                        HomeActivity.class
+                                )
+                        );
                     }
                 }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(activity, "Oops , please try again later", Toast.LENGTH_SHORT).show();
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(activity, "Oops , please try again later", Toast.LENGTH_SHORT).show();
 
-                        progressDialog.dismisss();
-                    }
-                });
+                progressDialog.dismisss();
+            }
+        });
     }
 }

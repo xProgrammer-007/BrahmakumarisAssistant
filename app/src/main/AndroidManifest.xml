@@ -34,6 +34,11 @@
         <activity android:name=".HomeActivity"/>
         <activity android:name=".MusicPlayerDetailActivity">
         </activity>
+        <activity
+                android:name=".Music_List"
+                android:label="@string/title_activity_music__list"
+                android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>

@@ -2,8 +2,10 @@ package com.bkassistant;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.view.View;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MediaPlayerApi {
@@ -13,15 +15,25 @@ public class MediaPlayerApi {
     ArrayList<SongDetail> playlist = new ArrayList<SongDetail>();
     private int activePlayingSongIndex = -1;
     PlayerState playerState = PlayerState.stopped;
+    private SongDetail songPlaying;
+    private OnMusicLoadedListener onMusicLoadedListener;
 
     MediaPlayerApi(HomeActivity activity, Context context){
         this.activity =  activity;
         this.context = context;
         mediaPlayer = new MediaPlayer();
+        activity.mediaPlayerUi.mediaCardHolder.setVisibility(View.GONE);
     }
 
 
+    public void setOnMusicLoadedListener(OnMusicLoadedListener onMusicLoadedListener) {
+        this.onMusicLoadedListener = onMusicLoadedListener;
+    }
 
+
+    public SongDetail getSongPlaying() {
+        return songPlaying;
+    }
 
     void pause(){
         if(mediaPlayer !=null && mediaPlayer.isPlaying()){
@@ -59,30 +71,47 @@ public class MediaPlayerApi {
             return;
         }
         
-        playMusic(playlist.get(activePlayingSongIndex).songUrl);
+        playMusic(playlist.get(activePlayingSongIndex));
         activity.mediaPlayerUi.songTextView.setText(playlist.get(activePlayingSongIndex).songName);
     }
 
 
 
-    void playMusic(String url){
-        if(mediaPlayer.isPlaying()){
+    void playMusic(SongDetail songDetail){
+        if(playerState != PlayerState.stopped){
             mediaPlayer.stop();
             mediaPlayer.reset();
         }
         try {
-            mediaPlayer.setDataSource(url);
-            mediaPlayer.prepareAsync();
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    onMusicLoadedListener.onMusicLoaded(mp);
+                }
 
+            });
+            activity.mediaPlayerUi.mediaCardHolder.setVisibility(View.VISIBLE);
+            playerState = PlayerState.loading;
+            songPlaying = songDetail;
+            System.out.println(songDetail.songUrl);
+            mediaPlayer.setDataSource(songDetail.songUrl);
+            mediaPlayer.prepareAsync();
+            //PROGRESS BAR SHOW ON PLAY/PAUSE BTN
+            activity.mediaPlayerUi.mediaProgressBar.setVisibility(View.VISIBLE);
+            activity.mediaPlayerUi.playPauseBtn.setVisibility(View.GONE);
 
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
+                    activity.mediaPlayerUi.mediaCardHolder.setVisibility(View.GONE);
                     mediaPlayer.stop();
                     mediaPlayer.reset();
+                    mediaPlayer = null;
                     activity.mediaPlayerUi.seekBar.setProgress(0);
-                    next();
+                    playerState = PlayerState.stopped;
                     activity.mediaPlayerUi.setPlayIcon();
+                    next();
                 }
             });
 
@@ -106,15 +135,19 @@ public class MediaPlayerApi {
 
     enum PlayerState{
         playing,
+        loading,
         paused,
         stopped,
-        none
+    }
+
+    public interface OnMusicLoadedListener{
+        void onMusicLoaded(MediaPlayer mediaPlayer);
     }
 
 
 }
 
-     class SongDetail{
+     class SongDetail implements Serializable {
         public final String songName;
         public final String songUrl;
 

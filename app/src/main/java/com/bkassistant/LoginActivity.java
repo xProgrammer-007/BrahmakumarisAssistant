@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(
                         new Intent(
                             LoginActivity.this,
-                            SignupActivity.class
+                            HomeActivity.class
                     )
                 );
                 overridePendingTransition(

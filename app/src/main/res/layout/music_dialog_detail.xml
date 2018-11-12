@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+        <Button
+                android:layout_width="match_parent"
+                android:drawableLeft="@drawable/ic_play_arrow_black_24dp"
+                android:drawableTint="@color/white"
+                android:text="PLay"
+                android:id="@+id/playBtnMusicDialogPopup"
+                android:background="@drawable/bg_gradient"
+                android:textColor="@color/white"
+                android:layout_height="40dp"
+        />
+        <Button
+                android:layout_width="match_parent"
+                android:drawableLeft="@drawable/ic_queue_music_black_24dp"
+                android:drawableTint="@color/white"
+                android:text="Add to playlist"
+                android:id="@+id/addBtnMusicDialogPopup"
+                android:background="@drawable/bg_gradient"
+                android:textColor="@color/white"
+                android:layout_height="40dp"
+        />
+        <Button
+                android:layout_width="match_parent"
+                android:drawableLeft="@drawable/ic_file_download_black_24dp"
+                android:drawableTint="@color/white"
+                android:text="Download Music"
+                android:id="@+id/downloadMusicDialogPopup"
+                android:background="@drawable/bg_gradient"
+                android:textColor="@color/white"
+                android:layout_height="40dp"
+        />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

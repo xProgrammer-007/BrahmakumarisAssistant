@@ -39,10 +39,10 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(
-                    new Intent(
-                         SignupActivity.this,
-                         LoginActivity.class
-                    )
+                        new Intent(
+                                SignupActivity.this,
+                                LoginActivity.class
+                        )
                 );
                 overridePendingTransition(
                         android.R.anim.fade_in,
@@ -55,23 +55,23 @@ public class SignupActivity extends AppCompatActivity {
     private void createAccount() {
 
 
-            if (!username.getText().toString().isEmpty()) {
-                if (!email_id.getText().toString().isEmpty()) {
-                    if (!password.getText().toString().isEmpty()) {
-                        if (password.getText().toString().length() >= 8)
-                        {
-                            if (password.getText().toString().equals(confirm_password.getText().toString())) {
-                                signUp.createAccountUsingEmailPassword(email_id.getText().toString(),password.getText().toString());
-                            } else
-                                Toast.makeText(this, "Password Doesn't Match", Toast.LENGTH_SHORT).show();
-                        }else
-                            Toast.makeText(this, "Please enter at least 8 digit", Toast.LENGTH_SHORT).show();
-                    } else
-                        Toast.makeText(this, "Please Enter Your Password", Toast.LENGTH_SHORT).show();
+        if (!username.getText().toString().isEmpty()) {
+            if (!email_id.getText().toString().isEmpty()) {
+                if (!password.getText().toString().isEmpty()) {
+                    if (password.getText().toString().length() >= 8)
+                    {
+                        if (password.getText().toString().equals(confirm_password.getText().toString())) {
+                            signUp.createAccountUsingEmailPassword(email_id.getText().toString(),password.getText().toString());
+                        } else
+                            Toast.makeText(this, "Password Doesn't Match", Toast.LENGTH_SHORT).show();
+                    }else
+                        Toast.makeText(this, "Please enter at least 8 digit", Toast.LENGTH_SHORT).show();
                 } else
-                    Toast.makeText(this, "Please Enter Your Email Id", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Please Enter Your Password", Toast.LENGTH_SHORT).show();
             } else
-                Toast.makeText(this, "Please Enter Your Last Name", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please Enter Your Email Id", Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(this, "Please Enter Your Last Name", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -81,6 +81,6 @@ public class SignupActivity extends AppCompatActivity {
         overridePendingTransition(
                 android.R.anim.slide_out_right,
                 android.R.anim.slide_in_left
-                );
+        );
     }
 }
